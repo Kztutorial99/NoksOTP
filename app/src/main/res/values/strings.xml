@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Nokos SMS</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_order">Beli Nokos</string>
+    <string name="nav_active">Live OTP</string>
+    <string name="nav_history">Riwayat</string>
+    <string name="nav_profile">Profil</string>
+    <string name="balance_label">Saldo Akun</string>
+    <string name="top_up_button">Top Up Saldo</string>
+    <string name="api_connected">API Terhubung</string>
+    <string name="api_disconnected">Demo Mode / API Belum Diatur</string>
+</resources>

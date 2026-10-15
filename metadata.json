@@ -1,0 +1,6 @@
+{
+  "name": "Nokos SMS",
+  "description": "Platform nomor virtual SMS OTP real-time modern dengan integrasi API smscode.gg dan sistem pembayaran otomatis.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
