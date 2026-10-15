@@ -14,11 +14,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -101,18 +103,23 @@ fun SaaSTopBar(
         tonalElevation = 4.dp,
         modifier = modifier.fillMaxWidth()
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
         ) {
-            // Brand Logo & Title
             Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .widthIn(max = 500.dp)
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.clickable { onApiStatusClick() }
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
+                // Brand Logo & Title
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.clickable { onApiStatusClick() }
+                ) {
                 Box(
                     modifier = Modifier
                         .size(38.dp)
@@ -218,6 +225,7 @@ fun SaaSTopBar(
         }
     }
 }
+}
 
 @Composable
 fun MetricStatCard(
@@ -301,31 +309,23 @@ fun ServiceItemCard(
                 .padding(14.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Service Badge / Icon
-            Box(
-                modifier = Modifier
-                    .size(46.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(
-                        when (service.id) {
-                            "wa" -> Color(0xFF25D366)
-                            "tg" -> Color(0xFF0088CC)
-                            "go" -> Color(0xFFEA4335)
-                            "tt" -> Color(0xFF000000)
-                            "sp" -> Color(0xFFEE4D2D)
-                            "dn" -> Color(0xFF118EEA)
-                            "gj" -> Color(0xFF00AA13)
-                            else -> VioletAccent
-                        }
-                    ),
-                contentAlignment = Alignment.Center
+            // Service Badge / Authentic Official Icon
+            Surface(
+                shape = RoundedCornerShape(12.dp),
+                color = Slate800,
+                border = androidx.compose.foundation.BorderStroke(1.dp, Slate700),
+                modifier = Modifier.size(46.dp)
             ) {
-                Text(
-                    text = service.name.take(2).uppercase(),
-                    color = Color.White,
-                    fontWeight = FontWeight.ExtraBold,
-                    fontSize = 17.sp
-                )
+                Box(
+                    modifier = Modifier.fillMaxSize().padding(6.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    androidx.compose.foundation.Image(
+                        painter = androidx.compose.ui.res.painterResource(id = service.iconResId),
+                        contentDescription = service.name,
+                        modifier = Modifier.size(32.dp)
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.width(12.dp))
@@ -558,10 +558,10 @@ fun ActiveOrderCard(
                 ) {
                     Column {
                         Text(
-                            text = "NOMOR VIRTUAL",
+                            text = "NOMOR VIRTUAL • ${order.operatorName.uppercase()}",
                             fontSize = 10.sp,
                             fontWeight = FontWeight.SemiBold,
-                            color = Slate400,
+                            color = CyanGlow,
                             letterSpacing = 1.sp
                         )
                         Spacer(modifier = Modifier.height(2.dp))

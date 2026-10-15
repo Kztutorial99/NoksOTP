@@ -16,8 +16,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
@@ -163,64 +165,74 @@ fun MainApp(
             )
         },
         bottomBar = {
-            NavigationBar(
-                containerColor = Slate900,
-                contentColor = Slate400,
-                tonalElevation = 8.dp,
-                modifier = Modifier.testTag("main_bottom_nav")
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Slate900),
+                contentAlignment = androidx.compose.ui.Alignment.Center
             ) {
-                ScreenTab.values().forEach { tab ->
-                    val isSelected = currentTab == tab
-                    NavigationBarItem(
-                        selected = isSelected,
-                        onClick = { currentTab = tab },
-                        icon = {
-                            if (tab == ScreenTab.LIVE && activeOrders.isNotEmpty()) {
-                                BadgedBox(
-                                    badge = {
-                                        Badge(
-                                            containerColor = EmeraldSuccess,
-                                            contentColor = Slate950
-                                        ) {
-                                            Text(
-                                                text = "${activeOrders.size}",
-                                                fontWeight = FontWeight.Black,
-                                                fontSize = 10.sp
-                                            )
+                NavigationBar(
+                    containerColor = Slate900,
+                    contentColor = Slate400,
+                    tonalElevation = 8.dp,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .widthIn(max = 500.dp)
+                        .testTag("main_bottom_nav")
+                ) {
+                    ScreenTab.values().forEach { tab ->
+                        val isSelected = currentTab == tab
+                        NavigationBarItem(
+                            selected = isSelected,
+                            onClick = { currentTab = tab },
+                            icon = {
+                                if (tab == ScreenTab.LIVE && activeOrders.isNotEmpty()) {
+                                    BadgedBox(
+                                        badge = {
+                                            Badge(
+                                                containerColor = EmeraldSuccess,
+                                                contentColor = Slate950
+                                            ) {
+                                                Text(
+                                                    text = "${activeOrders.size}",
+                                                    fontWeight = FontWeight.Black,
+                                                    fontSize = 10.sp
+                                                )
+                                            }
                                         }
+                                    ) {
+                                        Icon(
+                                            imageVector = if (isSelected) tab.selectedIcon else tab.unselectedIcon,
+                                            contentDescription = tab.title,
+                                            tint = if (isSelected) CyanGlow else Slate400
+                                        )
                                     }
-                                ) {
+                                } else {
                                     Icon(
                                         imageVector = if (isSelected) tab.selectedIcon else tab.unselectedIcon,
                                         contentDescription = tab.title,
                                         tint = if (isSelected) CyanGlow else Slate400
                                     )
                                 }
-                            } else {
-                                Icon(
-                                    imageVector = if (isSelected) tab.selectedIcon else tab.unselectedIcon,
-                                    contentDescription = tab.title,
-                                    tint = if (isSelected) CyanGlow else Slate400
+                            },
+                            label = {
+                                Text(
+                                    text = tab.title,
+                                    fontSize = 11.sp,
+                                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
+                                    color = if (isSelected) CyanGlow else Slate400
                                 )
-                            }
-                        },
-                        label = {
-                            Text(
-                                text = tab.title,
-                                fontSize = 11.sp,
-                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-                                color = if (isSelected) CyanGlow else Slate400
-                            )
-                        },
-                        colors = NavigationBarItemDefaults.colors(
-                            selectedIconColor = CyanGlow,
-                            selectedTextColor = CyanGlow,
-                            indicatorColor = Slate800,
-                            unselectedIconColor = Slate400,
-                            unselectedTextColor = Slate400
-                        ),
-                        modifier = Modifier.testTag("nav_tab_${tab.name.lowercase()}")
-                    )
+                            },
+                            colors = NavigationBarItemDefaults.colors(
+                                selectedIconColor = CyanGlow,
+                                selectedTextColor = CyanGlow,
+                                indicatorColor = Slate800,
+                                unselectedIconColor = Slate400,
+                                unselectedTextColor = Slate400
+                            ),
+                            modifier = Modifier.testTag("nav_tab_${tab.name.lowercase()}")
+                        )
+                    }
                 }
             }
         },
@@ -230,13 +242,19 @@ fun MainApp(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .background(Slate950)
+                .background(Slate950),
+            contentAlignment = androidx.compose.ui.Alignment.TopCenter
         ) {
-            AnimatedContent(
-                targetState = currentTab,
-                transitionSpec = { fadeIn() togetherWith fadeOut() },
-                label = "ScreenTransition"
-            ) { targetTab ->
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .widthIn(max = 500.dp)
+            ) {
+                AnimatedContent(
+                    targetState = currentTab,
+                    transitionSpec = { fadeIn() togetherWith fadeOut() },
+                    label = "ScreenTransition"
+                ) { targetTab ->
                 when (targetTab) {
                     ScreenTab.HOME -> HomeScreen(
                         viewModel = viewModel,
@@ -265,6 +283,7 @@ fun MainApp(
             }
         }
     }
+}
 
     // Top up bottom sheet
     if (showTopUpSheet) {

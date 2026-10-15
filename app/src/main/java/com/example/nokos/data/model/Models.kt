@@ -1,5 +1,6 @@
 package com.example.nokos.data.model
 
+import androidx.annotation.DrawableRes
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
@@ -9,8 +10,9 @@ data class Country(
     val id: String,
     val name: String,
     val code: String,
-    val prefix: String,
-    val flagEmoji: String
+    val prefix: String, // dial_code e.g. +62
+    val flagEmoji: String,
+    val active: Boolean = true
 )
 
 data class ServiceProduct(
@@ -19,7 +21,10 @@ data class ServiceProduct(
     val category: String,
     val price: Long,
     val stock: Int,
-    val iconKey: String
+    @DrawableRes val iconResId: Int,
+    val slug: String,
+    val platformId: Int,
+    val catalogProductId: String = ""
 )
 
 enum class OrderStatus {
@@ -41,6 +46,7 @@ data class NokosOrderEntity(
     val countryName: String,
     val prefix: String,
     val phoneNumber: String,
+    val operatorName: String = "Telkomsel",
     val status: String, // WAITING_SMS, RECEIVED, FINISHED, CANCELLED, TIMEOUT
     val smsCode: String? = null,
     val smsText: String? = null,
@@ -61,7 +67,7 @@ data class TransactionEntity(
     val createdAt: Long
 )
 
-// API models for smscode.gg
+// API models matching smscode.gg documentation
 @JsonClass(generateAdapter = true)
 data class ApiEnvelope<T>(
     @Json(name = "success") val success: Boolean = false,
@@ -81,13 +87,17 @@ data class ApiCountry(
     @Json(name = "id") val id: Any? = null,
     @Json(name = "name") val name: String? = null,
     @Json(name = "code") val code: String? = null,
-    @Json(name = "prefix") val prefix: String? = null
+    @Json(name = "dial_code") val dialCode: String? = null,
+    @Json(name = "prefix") val prefix: String? = null,
+    @Json(name = "emoji") val emoji: String? = null
 )
 
 @JsonClass(generateAdapter = true)
 data class ApiProduct(
     @Json(name = "id") val id: Any? = null,
     @Json(name = "name") val name: String? = null,
+    @Json(name = "platform_id") val platformId: Any? = null,
+    @Json(name = "catalog_product_id") val catalogProductId: String? = null,
     @Json(name = "price") val price: Double? = 0.0,
     @Json(name = "stock") val stock: Int? = 0
 )
@@ -97,6 +107,7 @@ data class ApiOrder(
     @Json(name = "id") val id: Any? = null,
     @Json(name = "phone_number") val phoneNumber: String? = null,
     @Json(name = "number") val number: String? = null,
+    @Json(name = "operator") val operator: String? = null,
     @Json(name = "status") val status: String? = null,
     @Json(name = "sms_code") val smsCode: String? = null,
     @Json(name = "code") val code: String? = null,
@@ -111,5 +122,6 @@ data class ApiOrder(
 data class CreateOrderRequest(
     @Json(name = "service_id") val serviceId: String? = null,
     @Json(name = "country_id") val countryId: String? = null,
+    @Json(name = "platform_id") val platformId: Int? = null,
     @Json(name = "catalog_product_id") val catalogProductId: String? = null
 )

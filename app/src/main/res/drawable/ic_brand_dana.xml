@@ -1,0 +1,13 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- DANA Indonesia Official Blue Logo Mark -->
+    <path
+        android:fillColor="#118EEA"
+        android:pathData="M12,2C6.48,2 2,6.48 2,12s4.48,10 10,10 10,-4.48 10,-10S17.52,2 12,2z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M7.5,7.5h4.2c2.6,0 4.3,1.7 4.3,4.5s-1.7,4.5 -4.3,4.5H7.5V7.5zM9.7,14.5h2c1.4,0 2.2,-0.9 2.2,-2.5s-0.8,-2.5 -2.2,-2.5h-2V14.5z" />
+</vector>

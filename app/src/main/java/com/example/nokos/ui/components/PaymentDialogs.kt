@@ -713,10 +713,19 @@ fun OrderConfirmBottomSheet(
                 Column(modifier = Modifier.padding(14.dp)) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text("Layanan", fontSize = 13.sp, color = Slate400)
-                        Text(service.name, fontSize = 13.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            androidx.compose.foundation.Image(
+                                painter = androidx.compose.ui.res.painterResource(id = service.iconResId),
+                                contentDescription = service.name,
+                                modifier = Modifier.size(20.dp)
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(service.name, fontSize = 13.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                        }
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     Row(

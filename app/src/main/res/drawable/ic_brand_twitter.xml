@@ -1,0 +1,13 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- X / Twitter Official Monochrome Logo -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M12,2C6.48,2 2,6.48 2,12s4.48,10 10,10 10,-4.48 10,-10S17.52,2 12,2z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M14.73,6h2.23l-4.87,5.57L17.82,18h-4.49l-3.52,-4.6 -4.03,4.6H3.55l5.21,-5.96L3.29,6h4.6l3.18,4.21L14.73,6zM13.95,16.67h1.24L7.19,7.26H5.86l8.09,9.41z" />
+</vector>
